@@ -1,7 +1,0 @@
-package asciioptimiser
-
-import (
-	
-)
-
-func 
