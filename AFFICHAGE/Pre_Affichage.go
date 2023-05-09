@@ -1,9 +1,11 @@
 package AFFICHAGE
 
 import (
-	"Ascii-Art/Banner"
-	"Ascii-Art/Option/Color"
-	Option "Ascii-Art/Option/Output"
+	"Ascii-Art/BANNER"
+	"Ascii-Art/OPTION/JUSTIFY"
+	"Ascii-Art/OPTION/COLOR"
+	OPTION "Ascii-Art/OPTION/OUTPUT"
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -11,46 +13,57 @@ import (
 
 func Affichage() string {
 	text := ""
-	saisie := Banner.Saisie()
+	if len(os.Args[1:]) < 1 || len(os.Args[1:]) > 3 {
+		return "\n\t\t\033[31m~FS~\033[0m\n\n\033[32musage:\033[0m go run . [STRING] [BANNER]\n\n\033[32mexample:\033[0m go run . \"HELLO\" shadow\n\n\t\t\033[31m~COLOR~\033[0m\n\n\033[32musage:\033[0m go run . [OPTION] [STRING]\n\n\033[32mexample:\033[0m go run . --color=red \"HELLO\"\n\n\t\t\033[31m~OUTPUT~\033[0m\n\n\033[32musage:\033[0m go run . [OPTION] [STRING] [BANNER]\n\n\033[32mexample:\033[0m go run . --output=filename.txt \"HELLO\" thinkertoy\n\n"
+	}
+	if len(os.Args[1:]) == 1 {
+		text = BANNER.Standard(BANNER.Saisie())
+	}
 	if len(os.Args[1:]) == 2 {
+		saisie := BANNER.Saisie()
 		if os.Args[2] == "standard" || os.Args[2] == "shadow" || os.Args[2] == "thinkertoy" || strings.HasPrefix(os.Args[1], "--color=") {
 			if os.Args[2] == "standard" {
-				text = Banner.Standard(saisie)
+				text = BANNER.Standard(saisie)
 			}
 			if os.Args[2] == "shadow" {
-				text = Banner.Shadow(saisie)
+				text = BANNER.Shadow(saisie)
 			}
 			if os.Args[2] == "thinkertoy" {
-				text = Banner.Thinkertoy(saisie)
+				text = BANNER.Thinkertoy(saisie)
 			}
 			if strings.HasPrefix(os.Args[1], "--color=") {
-				text = fmt.Sprint(Color.Color(), Banner.Standard(saisie), "\033[0m")
+				text = fmt.Sprint(COLOR.Color(), BANNER.Standard(saisie), "\033[0m")
 			}
 		} else {
-			if strings.Contains(os.Args[1], "color") {
-				return "usage: go run . [OPTION] [STRING]\nexample: go run . --color=red \"HELLO\"\n"
-			}
-			if strings.Contains(os.Args[1], "output") {
-				return "usage: go run . [OPTION] [STRING] [BANNER]\nexample: go run . --output=filename.txt \"HELLO\" standard\n"
-			}
-			return "\t\tBanner List:\n-standard\n-shadow\n-thinkertoy\n"
-
+			return "\n\t\t\033[31m~FS~\033[0m\n\n\033[32musage:\033[0m go run . [STRING] [BANNER]\n\n\033[32mexample:\033[0m go run . \"HELLO\" shadow\n\n\t\t\033[31m~COLOR~\033[0m\n\n\033[32musage:\033[0m go run . [OPTION] [STRING]\n\n\033[32mexample:\033[0m go run . --color=red \"HELLO\"\n\n\t\t\033[31m~OUTPUT~\033[0m\n\n\033[32musage:\033[0m go run . [OPTION] [STRING] [BANNER]\n\n\033[32mexample:\033[0m go run . --output=filename.txt \"HELLO\" thinkertoy\n\n"
 		}
 	}
 	if len(os.Args[1:]) == 3 {
-		if strings.HasPrefix(os.Args[1], "--output=") {
+		if strings.HasPrefix(os.Args[1], "--output=") || strings.HasPrefix(os.Args[1], "--color=") || strings.HasPrefix(os.Args[1], "--align="){
 			if strings.HasPrefix(os.Args[1], "--output=") {
-				if Option.Output() != nil {
-					return "error output"
+				if strings.HasPrefix(os.Args[1], "--output=") {
+					if OPTION.OUTPUT() != nil {
+						return fmt.Sprint("\n❌Invalid Banner : ", os.Args[3], "\n\n\t\033[32mBanner List\033[0m\n\n-standard\n\n-shadow\n\n-thinkertoy\n\n")
+					}
 				}
 			}
-		}
-		if strings.HasPrefix(os.Args[1], "--color=") {
-			return Banner.Standard(Banner.Saisie())
+			if strings.HasPrefix(os.Args[1], "--color=") {
+				if COLOR.Color() == "Invalid Color" {
+					h := flag.String("color", "text", "here")
+					flag.Parse()
+					fmt.Print("❌Invalid Color: ", *h, "\n\n\t\tColor List\033[0m\n-black\n-red\n-green\n-yellow\n-blue\n-violet\n-cyan\n-white\n-orange\n-pink\n-marron\n")
+					os.Exit(1)
+				}
+				return BANNER.Standard(BANNER.Saisie())
+			}
+			if strings.HasPrefix(os.Args[1], "--align=") {
+				if OPTION.() != nil {
+
+				}
+			}
+		} else {
+			return "\n\t\t\033[31m~FS~\033[0m\n\n\033[32musage:\033[0m go run . [STRING] [BANNER]\n\n\033[32mexample:\033[0m go run . \"HELLO\" shadow\n\n\t\t\033[31m~COLOR~\033[0m\n\n\033[32musage:\033[0m go run . [OPTION] [STRING]\n\n\033[32mexample:\033[0m go run . --color=red \"HELLO\"\n\n\t\t\033[31m~OUTPUT~\033[0m\n\n\033[32musage:\033[0m go run . [OPTION] [STRING] [BANNER]\n\n\033[32mexample:\033[0m go run . --output=filename.txt \"HELLO\" thinkertoy\n\n"
 		}
 	}
-	//else {
-	// 	return "usage: go run . [STRING] [BANNER]\nexample: go run . \"HELLO\" standard\n"
-	// }
 	return text
 }

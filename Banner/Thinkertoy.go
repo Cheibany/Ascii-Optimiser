@@ -1,4 +1,4 @@
-package Banner
+package BANNER
 
 import (
 	"log"

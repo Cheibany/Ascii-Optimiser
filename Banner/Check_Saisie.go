@@ -1,4 +1,4 @@
-package Banner
+package BANNER
 
 import (
 	"os"
@@ -7,7 +7,7 @@ import (
 
 func Saisie() string {
 	var saisie string
-	if len(os.Args[1:]) == 2 {
+	if len(os.Args[1:]) == 2 || len(os.Args[1:]) == 1 {
 		saisie = os.Args[1]
 	}
 	if len(os.Args[1:]) == 3 || strings.HasPrefix(os.Args[1], "--color=") {

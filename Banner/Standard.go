@@ -1,7 +1,7 @@
-package Banner
+package BANNER
 
 import (
-	"Ascii-Art/Option/Color"
+	"Ascii-Art/OPTION/COLOR"
 	"log"
 	"os"
 	"strings"
@@ -26,7 +26,7 @@ func Standard(Input string) string {
 				} else {
 					if strings.HasPrefix(os.Args[1], "--color=") && len(os.Args[1:]) == 3 {
 						if strings.Contains(os.Args[2], string(word)) {
-							text += Color.Color() + Tab[(((word-31)*9)-8)+rune(i)] + "\033[0m"
+							text += COLOR.Color() + Tab[(((word-31)*9)-8)+rune(i)] + "\033[0m"
 						} else {
 							text += Tab[(((word-31)*9)-8)+rune(i)]
 						}
