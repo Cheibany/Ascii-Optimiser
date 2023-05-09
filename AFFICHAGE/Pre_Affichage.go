@@ -57,7 +57,7 @@ func Affichage() string {
 				return BANNER.Standard(BANNER.Saisie())
 			}
 			if strings.HasPrefix(os.Args[1], "--align=") {
-				if OPTION.() != nil {
+				if Justify.Justify() {
 
 				}
 			}

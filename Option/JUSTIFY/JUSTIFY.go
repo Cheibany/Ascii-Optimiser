@@ -12,7 +12,7 @@ import (
 var alignType string
 
 func init() {
-	flag.StringVar(&alignType, "align", "left", "Type d'alignement (centre, gauche, droite, justifier)")
+	flag.StringVar(&alignType, "align", "left", "Type d'alignement (center, left, right, justify)")
 	flag.Parse()
 }
 
