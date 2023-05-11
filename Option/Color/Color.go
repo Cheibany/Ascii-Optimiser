@@ -1,4 +1,4 @@
-package COLOR
+package Color
 
 import (
 	"os"

@@ -33,13 +33,13 @@ func Justify() {
 	}
 
 	switch alignType {
-	case "centre":
+	case "center":
 		fmt.Println(centreAlign(text, consoleWidth))
-	case "gauche":
+	case "left":
 		fmt.Println(leftAlign(text))
-	case "droite":
+	case "right":
 		fmt.Println(rightAlign(text, consoleWidth))
-	case "justifier":
+	case "justify":
 		fmt.Println(justifyAlign(text, consoleWidth))
 	default:
 		fmt.Println("Type d'alignement invalide!")

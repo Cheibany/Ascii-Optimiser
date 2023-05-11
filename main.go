@@ -1,10 +1,10 @@
 package main
 
 import (
-	"Ascii-Art/AFFICHAGE"
+	"Ascii-Art/Affichage"
 	"fmt"
 )
 
 func main() {
-	fmt.Print(AFFICHAGE.Affichage())
+	fmt.Print(Affichage.Affichage())
 }
